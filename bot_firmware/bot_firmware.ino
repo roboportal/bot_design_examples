@@ -1,110 +1,87 @@
-#include "ChiNRF.h"
+#include <SPI.h>
+#include <Servo.h>
+
+#include "nRF24L01.h"
+#include "RF24.h"
+
 #include "Motors.h"
-#include "PololuLedStrip.h"
 
-#define BOT_ADDR 0
 
-#define A_IN1 A3
-#define A_IN2 A2
-#define A_PWM 10
+#define A_IN1 7
+#define A_IN2 8
+#define A_PWM 6
 
-#define B_IN1 6
-#define B_IN2 4
-#define B_PWM 9
+#define B_IN1 3
+#define B_IN2 2
+#define B_PWM 5
 
-#define STB 8
+#define STBY 4
 
-#define LED_D A1
+#define SRV 9
 
-#define WOUND 12
-#define LED 13
+#define CSN A1
+#define CE 10
 
-#define LEFT_DIR -1
-#define RIGHT_DIR 1
+#define LEFT_DIR 1
+#define RIGHT_DIR -1
 
-void onPacketReceived();
+#define LIFT_DOWN  5
+#define LIFT_UP  100
 
-ChiNRF radio(chip_RFM75);
-Motors motors(A_IN1, A_IN2, A_PWM, B_IN1, B_IN2, B_PWM, STB);
+#define BOT_ADDRESS 1
 
-PololuLedStrip<A1> led;
-rgb_color colors[1];
+Motors motors(A_IN1, A_IN2, A_PWM, B_IN1, B_IN2, B_PWM, STBY);
+RF24 radio(CE, CSN);
+Servo lift;
 
-void initColor()
-{
-  switch (BOT_ADDR)
-  {
-  case 0:
-    colors[0].red = 255;
-    colors[0].green = 0;
-    colors[0].blue = 0;
-    break;
-  case 1:
-    colors[0].red = 0;
-    colors[0].green = 255;
-    colors[0].blue = 0;
-    break;
-  case 2:
-    colors[0].red = 0;
-    colors[0].green = 0;
-    colors[0].blue = 255;
-    break;
-  case 3:
-    colors[0].red = 255;
-    colors[0].green = 255;
-    colors[0].blue = 0;
-    break;
+void setup() {
+  Serial.begin(115200);
+  while (!Serial) {
+    continue;
   }
-}
+  pinMode(LED_BUILTIN, OUTPUT);
 
-void setup()
-{
-  //  initColor();
-  //  led.write(colors, 1);
-
-  //  Serial.begin(115200);
-  //  while (!Serial) continue;
   motors.init();
+  lift.attach(SRV);
 
-  radio.setOnReceive(onPacketReceived);
-  radio.begin(2, 14, 16, 15, A5, A4);
-  radio.setRxPayloadWidth(0, 2);
-  radio.setRxAddressP0(0x1122332211LL);
-  radio.setTxAddress(0x1122332210LL);
-
-  pinMode(LED, OUTPUT);
-  digitalWrite(LED, HIGH);
-
-  pinMode(WOUND, INPUT_PULLUP);
-}
-
-void loop()
-{
-  radio.tick();
-  if (!digitalRead(WOUND))
-  {
-    uint8_t data = 0 | BOT_ADDR | 0b100;
-    radio.writeTxPayload((uint8_t *)(&data), 1);
+  if (!radio.begin()) {
+    while (1) {
+      digitalWrite(LED_BUILTIN, HIGH);
+      delay(500);
+      digitalWrite(LED_BUILTIN, LOW);
+      delay(500);
+    }
   }
+
+  radio.setPALevel(RF24_PA_LOW);
+  radio.setPayloadSize(2);
+  radio.openReadingPipe(1, BOT_ADDRESS);
+  radio.startListening();
+
+  lift.write(LIFT_DOWN);
 }
 
-void onPacketReceived()
-{
-  uint8_t data[2];
-  radio.readRxPayload((uint8_t *)(&data), 2);
-  uint16_t result = data[1] + (data[0] << 8);
-  //  Serial.print("data: ");
-  //  Serial.println(result, BIN);
-  uint8_t botAddr = result & 0b11;
+void loop() {
+  uint8_t pipe;
+  if (radio.available(&pipe)) {
+    uint8_t bytes = radio.getPayloadSize();
+    uint8_t data[2];
+    radio.read((uint8_t *)(&data), 2);
+    uint16_t result = data[1] + (data[0] << 8);
 
-  uint8_t leftDir = result >> 13 & 0b1;
-  int left = (leftDir ? LEFT_DIR : -LEFT_DIR) * map((result >> 8) & 0b11111, 0, 31, 0, 255);
+    uint8_t leftDir = result >> 13 & 0b1;
+    int left = (leftDir ? LEFT_DIR : -LEFT_DIR) * map((result >> 8) & 0b11111, 0, 31, 0, 255);
 
-  uint8_t rightDir = result >> 7 & 0b1;
-  int right = (rightDir ? RIGHT_DIR : -RIGHT_DIR) * map((result >> 2) & 0b11111, 0, 31, 0, 255);
+    uint8_t rightDir = result >> 7 & 0b1;
+    int right = (rightDir ? RIGHT_DIR : -RIGHT_DIR) * map((result >> 2) & 0b11111, 0, 31, 0, 255);
 
-  if (botAddr == BOT_ADDR)
-  {
+    uint8_t fire = uint8_t(result & 0b1);
+
+    if (fire) {
+      lift.write(LIFT_UP);
+    } else {
+      lift.write(LIFT_DOWN);
+    }
     motors.moveA(left);
     motors.moveB(right);
   }
