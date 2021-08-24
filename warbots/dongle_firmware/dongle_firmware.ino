@@ -3,8 +3,8 @@
 #include "RF24.h"
 #include "ArduinoJson.h"
 
-#define CSN 9
-#define CE 10
+#define CSN 10
+#define CE 9
 
 RF24 radio(CE, CSN);
 
