@@ -15,6 +15,7 @@ Expired by battle bots. To get an idea what is that check the preview below:
 
 ### Description
 Remote controlled vehicle.
+Read the full story [here](https://www.thingiverse.com/thing:4948956)
 ![scout preview](./resources/scout.jpeg)
 
 ### Build files:
