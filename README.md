@@ -26,6 +26,7 @@ Read the full story [here](https://www.thingiverse.com/thing:4948956)
 
 ### Description
 A simple way to play [BattleBots](https://www.hexbug.com/battlebots) online. Toys are remotely controlled over IR with some custom protocol (at least I didn't find anything like that). Signal is modulated with 38 kHz. The example of 'move forward' command for the robot with address '0':
+
 ![scout preview](./resources/protocol.png)
 
 #### Timings
