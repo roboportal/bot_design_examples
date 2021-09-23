@@ -49,7 +49,7 @@ There are 4 addresses available (0b00 - 0b11)
 
 #### Parity bit
 
-Parity bit is calculated by counting '1' in  command and address. The value is '1' if the sun is odd.
+Parity bit is calculated by counting '1' in  command and address. The value is '1' if the counter is odd.
 
 #### Hardware
 
