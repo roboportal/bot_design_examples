@@ -4,6 +4,7 @@ import select
 import sys
 import json
 
+bot_id = 0
 invert_left_dir = True
 invert_right_dir = False
 
@@ -191,7 +192,7 @@ while True:
             reading = battery_voltage.read_u16() * conversion_factor
             voltage = reading * divider_ratio
 
-            telemetry = '{"lat":' + str(lat) + ',"lng":' + str(
+            telemetry = '{"id":' + str(bot_id) + ',"lat":' + str(lat) + ',"lng":' + str(
                 lng) + ',"headingAngle":' + str(heading_angle) + ',"battery":' + str(voltage) + '}'
             print(telemetry)
 
