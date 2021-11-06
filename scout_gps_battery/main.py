@@ -84,14 +84,27 @@ def get_heading_angle():
 
 def get_coordinates(line):
     tokens = line.split(',')
+
     lat = tokens[1]
     long = tokens[3]
 
+    if not lat or not long:
+        return 0, 0
+
+    lat_deg = lat[0:2]
+    lat_min = lat[2:]
+
+    long_deg = long[0:3]
+    long_min = long[3:]
+
+    lat = float(lat_deg) + float(lat_min) / 60
+    long = float(long_deg) + float(long_min) / 60
+
     if tokens[2] == 'S':
-        lat = '-' + lat
+        lat = -lat
 
     if tokens[4] == 'W':
-        long = '-' + long
+        long = -long
 
     return lat, long
 
@@ -190,10 +203,10 @@ while True:
             lng = lng or 'null'
 
             reading = battery_voltage.read_u16() * conversion_factor
-            voltage = reading * divider_ratio
+            voltage = round(reading * divider_ratio, 2)
 
             telemetry = '{"id":' + str(bot_id) + ',"lat":' + str(lat) + ',"lng":' + str(
-                lng) + ',"headingAngle":' + str(heading_angle) + ',"battery":' + str(voltage) + '}'
+                lng) + ',"headingAngle":' + str(heading_angle) + ',"battery":"' + str(voltage) + 'V"}'
             print(telemetry)
 
         is_gps_command_available = False
