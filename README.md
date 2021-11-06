@@ -3,10 +3,12 @@
 ## Warbots
 
 ### Description
+
 Expired by battle bots. To get an idea what is that check the preview below:
 ![warbots preview](./resources/warbots_preview.gif)
 
 ### Build files:
+
 - [RF dongle PCB](https://oshwlab.com/dmalykhin/dongle_v2)
 - [Warbot controller PCB](https://oshwlab.com/dmalykhin/bot_v2)
 - [Models to 3d print](https://www.thingiverse.com/thing:4923396)
@@ -14,34 +16,47 @@ Expired by battle bots. To get an idea what is that check the preview below:
 ## Scout
 
 ### Description
+
 Remote controlled vehicle.
 Read the full story [here](https://www.thingiverse.com/thing:4948956)
 ![scout preview](./resources/scout.jpeg)
 
 ### Build files:
+
 - [Scout controller PCB](https://oshwlab.com/dmalykhin/scout)
 - [Models to 3d print](https://www.thingiverse.com/thing:4948956)
+
+## Telemetry
+
+### Description
+
+The communication between the robot and the user's UI is bidirectional. Data, that could be streamed from the robot to the application and presented on optional widgets:
+
+- GPS coordinates and magnetic heading displayed on the map
+- battery voltage
 
 ## HEXBUG BattleBots
 
 ### Description
+
 A simple way to play [BattleBots](https://www.hexbug.com/battlebots) online. Toys are remotely controlled over IR with some custom protocol (at least it didn't match existing ones at first glance). Signal is modulated with 38 kHz. The example of 'move forward' command for the robot with address '0':
 
 ![scout preview](./resources/protocol.png)
 
 #### Timings
- - 'start' bit ~ 1.7 ms
- - 'pause' and '0' ~ 0.3 ms
- - '1' ~ 1 ms
+
+- 'start' bit ~ 1.7 ms
+- 'pause' and '0' ~ 0.3 ms
+- '1' ~ 1 ms
 
 #### Commands
 
-- stop     0b00000
-- forward  0b10000
-- left     0b01000
-- right    0b00100
+- stop 0b00000
+- forward 0b10000
+- left 0b01000
+- right 0b00100
 - backward 0b00010
-- weapon   0b00001
+- weapon 0b00001
 
 #### Addresses
 
@@ -53,4 +68,4 @@ Parity bit is calculated by counting '1' in command and address. The value is '1
 
 #### Hardware
 
-IR led is connected to Arduino (nano in this case) D2 pin thru current limiting resistor 150R. 
+IR led is connected to Arduino (nano in this case) D2 pin thru current limiting resistor 150R.
