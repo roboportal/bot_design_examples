@@ -35,6 +35,10 @@ The communication between the robot and the user's UI is bidirectional. Data, th
 - GPS coordinates and magnetic heading displayed on the map
 - battery voltage
 
+### Build files:
+
+- [Controller PCB with bn-880](https://oshwlab.com/dmalykhin/scout_copy_copy)
+
 ## HEXBUG BattleBots
 
 ### Description
