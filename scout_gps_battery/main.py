@@ -21,7 +21,7 @@ y_axis_h = 0x07       # Address of Y-axis MSB data register
 pi = 3.14159265359    # define pi value
 
 conversion_factor = 3.3 / 65535
-divider_ratio = 4.1
+divider_ratio = 8
 
 uart = UART(1, baudrate=9600, tx=Pin(8), rx=Pin(9))
 i2c = I2C(1, scl=Pin(27), sda=Pin(26))
