@@ -237,8 +237,8 @@ while True:
             continue
 
     while sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-        ch = sys.stdin.read(1)
-        if ch == '\n':
+        line = sys.stdin.readline().strip()
+        if line:
+            move_command = line
             is_move_command_available = True
-        else:
-            move_command = move_command + ch
+
