@@ -1,5 +1,18 @@
 # Example of robots built with roboportal
 
+## Sneaky
+
+### Description
+
+Minimalistic robot design for the indoor fun.
+
+![sneaky preview](./resources/sneaky.jpeg)
+
+### Build files:
+
+- [PCB](https://oshwlab.com/dmalykhin/sneaky)
+- [Models to 3d print](https://www.thingiverse.com)
+
 ## Warbots
 
 ### Description
