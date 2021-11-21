@@ -11,7 +11,7 @@ Minimalistic robot design for the indoor fun.
 ### Build files:
 
 - [PCB](https://oshwlab.com/dmalykhin/sneaky)
-- [Models to 3d print](https://www.thingiverse.com)
+- [Models to 3d print](https://www.thingiverse.com/thing:5142429)
 
 ## Warbots
 
