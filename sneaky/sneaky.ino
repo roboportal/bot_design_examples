@@ -1,4 +1,5 @@
 #include "ArduinoJson.h"
+#include "arduino-timer.h"
 #include "Motors.h"
 
 #define A_IN1 11
@@ -11,13 +12,25 @@
 
 #define STBY 12
 
-#define LEFT_DIR 1
-#define RIGHT_DIR 1
+#define BAT A1
 
+#define LEFT_DIR 1
+#define RIGHT_DIR -1
+
+#define VOLTAGE_CONVERTION_FACTOR 157.49
+Timer<1> timer;
 Motors motors(A_IN1, A_IN2, A_PWM, B_IN1, B_IN2, B_PWM, STBY);
 
 String inputString = "";
 bool stringComplete = false;
+
+bool sendBatteryVoltage(void *argument) {
+  float voltage = analogRead(BAT) / VOLTAGE_CONVERTION_FACTOR;
+  String telemetry = "{\"id\":0, \"battery\":\"" + String(voltage) + "V\"}";
+  Serial.println(telemetry);
+
+  return true;
+}
 
 void setup()
 {
@@ -28,6 +41,7 @@ void setup()
     continue;
   }
   motors.init();
+  timer.every(2000, sendBatteryVoltage);
 }
 
 void loop()
@@ -104,6 +118,7 @@ void loop()
     inputString = "";
     stringComplete = false;
   }
+  timer.tick();
 }
 
 void serialEvent()
