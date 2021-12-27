@@ -1,4 +1,8 @@
-# Example of robots built with roboportal
+# Examples of robots built with roboportal
+
+## How-to
+
+[Video guide on integrating a robot with the roboportal.](https://www.youtube.com/channel/UC-CswhfCJ-i4M9BcoTOE9oA)
 
 ## Sneaky
 
