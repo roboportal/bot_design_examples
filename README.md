@@ -17,6 +17,11 @@ Minimalistic robot design for the indoor fun.
 - [PCB](https://oshwlab.com/dmalykhin/sneaky)
 - [Models to 3d print](https://www.thingiverse.com/thing:5142429)
 
+### How it works:
+
+[![How it works](https://img.youtube.com/vi/yAeELCg7Gv4/default.jpg)](https://youtu.be/yAeELCg7Gv4)
+
+
 ## Warbots
 
 ### Description
