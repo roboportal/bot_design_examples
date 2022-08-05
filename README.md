@@ -4,6 +4,23 @@
 
 [Video guide on integrating a robot with the roboportal.](https://www.youtube.com/channel/UC-CswhfCJ-i4M9BcoTOE9oA)
 
+## Rovy
+
+### Description
+
+Simple robot with rocker suspension and power management system.
+
+![rovy preview](./resources/rovy.jpeg)
+
+### Build files:
+
+- [PCB](https://oshwlab.com/dmalykhin/home-bot)
+- [Models to 3d print](https://www.thingiverse.com/thing:5449201)
+
+### How it works:
+
+[![How rovy works](https://img.youtube.com/vi/h6eWd0xzq3Q/default.jpg)](https://youtu.be/h6eWd0xzq3Q)
+
 ## Sneaky
 
 ### Description
@@ -19,8 +36,7 @@ Minimalistic robot design for the indoor fun.
 
 ### How it works:
 
-[![How it works](https://img.youtube.com/vi/yAeELCg7Gv4/default.jpg)](https://youtu.be/yAeELCg7Gv4)
-
+[![How sneaky works](https://img.youtube.com/vi/yAeELCg7Gv4/default.jpg)](https://youtu.be/yAeELCg7Gv4)
 
 ## Warbots
 
