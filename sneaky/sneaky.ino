@@ -17,16 +17,29 @@
 #define LEFT_DIR 1
 #define RIGHT_DIR -1
 
-#define VOLTAGE_CONVERTION_FACTOR 157.49
+#define VOLTAGE_CONVERSION_FACTOR 157.49
 Timer<1> timer;
 Motors motors(A_IN1, A_IN2, A_PWM, B_IN1, B_IN2, B_PWM, STBY);
 
 String inputString = "";
 bool stringComplete = false;
 
-bool sendBatteryVoltage(void *argument) {
-  float voltage = analogRead(BAT) / VOLTAGE_CONVERTION_FACTOR;
-  String telemetry = "{\"id\":0, \"battery\":\"" + String(voltage) + "V\"}";
+bool sendBatteryVoltage(void *argument)
+{
+  StaticJsonDocument<200> doc;
+
+  float voltage = analogRead(BAT) / VOLTAGE_CONVERSION_FACTOR;
+
+  battery["min"] = 3.2;
+  battery["max"] = 4.2;
+  battery["uom"] = "V";
+  battery["charging"] = false;
+  battery["value"] = voltage;
+
+  String telemetry = "";
+
+  serializeJson(doc, telemetry);
+
   Serial.println(telemetry);
 
   return true;

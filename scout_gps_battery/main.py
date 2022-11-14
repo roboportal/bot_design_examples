@@ -205,9 +205,21 @@ while True:
             reading = battery_voltage.read_u16() * conversion_factor
             voltage = round(reading * divider_ratio, 2)
 
-            telemetry = '{"id":' + str(bot_id) + ',"lat":' + str(lat) + ',"lng":' + str(
-                lng) + ',"headingAngle":' + str(heading_angle) + ',"battery":"' + str(voltage) + 'V"}'
-            print(telemetry)
+            telemetry = {
+                "id": bot_id,
+                "lat": lat,
+                "lng": lng,
+                "headingAngle": heading_angle,
+                "battery": {
+                    "min": 18,
+                    "max": 25.2,
+                    "value": voltage,
+                    "uom": "V",
+                    "charging": False
+                }
+            }
+
+            print(json.dumps(telemetry))
 
         is_gps_command_available = False
         gps_command = bytes()
@@ -241,4 +253,3 @@ while True:
         if line:
             move_command = line
             is_move_command_available = True
-
