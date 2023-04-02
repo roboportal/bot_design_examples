@@ -28,6 +28,10 @@ bool sendBatteryVoltage(void *argument)
 {
   StaticJsonDocument<200> doc;
 
+  doc["id"] = 0;
+
+  JsonObject battery = doc.createNestedObject("battery");
+
   float voltage = analogRead(BAT) / VOLTAGE_CONVERSION_FACTOR;
 
   battery["min"] = 3.2;

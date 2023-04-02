@@ -21,6 +21,10 @@ Simple robot with rocker suspension and power management system.
 
 [![How rovy works](https://img.youtube.com/vi/h6eWd0xzq3Q/default.jpg)](https://youtu.be/h6eWd0xzq3Q)
 
+## Arduino boilerplate
+
+Basic example for building arduino-based robot
+
 ## IPC
 
 Minimalistic example of inter process communication with [ZeroMQ](https://zeromq.org/). The way to integrate with ROS and etc.
