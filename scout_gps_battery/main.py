@@ -207,9 +207,11 @@ while True:
 
             telemetry = {
                 "id": bot_id,
-                "lat": lat,
-                "lng": lng,
-                "headingAngle": heading_angle,
+                "location": {
+                    "lat": lat,
+                    "lng": lng,
+                    "headingAngle": heading_angle
+                },
                 "battery": {
                     "min": 18,
                     "max": 25.2,

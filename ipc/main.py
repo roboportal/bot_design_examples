@@ -25,9 +25,11 @@ async def send():
     while True:
         telemetry = {
             "id": 0,
-            "lat": 1,
-            "lng": 1,
-            "headingAngle": 180,
+            "location": {
+                "lat": 1,
+                "lng": 1,
+                "headingAngle": 180
+            },
             "battery": {
                 "min": 0,
                 "max": 100,
